@@ -82,9 +82,13 @@ function CheckGithubLatestVersion(const Silent: boolean = False; const Repo: str
 
 procedure RegAutoStart(const AEnable: boolean; const AppName: string = 'Trayslate');
 
+{ Gzip }
+
 function IsGzip(Stream: TMemoryStream): boolean;
 
 function DecompressGzipToStream(Compressed: TMemoryStream): TMemoryStream;
+
+{ Base64 }
 
 function StreamToBase64(const MS: TMemoryStream): string;
 
@@ -97,6 +101,10 @@ function LoadImageFileToBase64(const FileName: string): string;
 function Base64ToBitmap(const Base64Str: string): Graphics.TBitmap;
 
 function AddBase64ToImageList(const Base64Str: string; AList: TImageList): integer;
+
+{Win version}
+
+function IsWindows11: Boolean;
 
 var
   Language: string;
@@ -870,7 +878,7 @@ var
   Reg: TRegistry;
   ExeName: string;
 begin
-  ExeName := '"' + ParamStr(0) + '"'; // полный путь к текущему exe
+  ExeName := '"' + ParamStr(0) + '"';
 
   Reg := TRegistry.Create;
   try
@@ -888,6 +896,8 @@ begin
     Reg.Free;
   end;
 end;
+
+{ Gzip }
 
 function IsGzip(Stream: TMemoryStream): boolean;
 var
@@ -1001,6 +1011,8 @@ begin
     raise;
   end;
 end;
+
+{ Base64 }
 
 function StreamToBase64(const MS: TMemoryStream): string;
 var
@@ -1193,6 +1205,13 @@ begin
     Bmp.Free;
     FixedBmp.Free;
   end;
+end;
+
+{Win version}
+
+function IsWindows11: Boolean;
+begin
+  Result := (Win32MajorVersion >= 10) and (Win32BuildNumber >= 22000);
 end;
 
 end.

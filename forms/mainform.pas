@@ -1572,9 +1572,12 @@ begin
 
       Item.Hint := SL[i];
       Item.Tag := i;
-      Item.ImageIndex := ServiceIcon;
       Item.OnClick := @MenuConfigItemClick;
       Item.Checked := SameText(SL[i], FConfigFile);
+      if Item.Checked then
+        Item.ImageIndex := -1
+      else
+        Item.ImageIndex := ServiceIcon;
 
       MenuConfig.Add(Item);
 
@@ -1684,9 +1687,12 @@ begin
       if RecentPairHotKeys and (i < 9) then
         mi.ShortCut := Menus.ShortCut(Ord('1') + i, [ssCtrl, ssShift]);
       mi.Tag := i;
-      mi.ImageIndex := ServiceIcon;
       mi.OnClick := @MenuPairClick;
       mi.Checked := SameText(mi.Hint, LangSource + ':' + LangTarget);
+      if mi.Checked then
+        mi.ImageIndex := -1
+      else
+        mi.ImageIndex := ServiceIcon;
       MenuLangPairs.Add(mi);
     end;
   finally
@@ -1805,6 +1811,11 @@ begin
       MenuConfig.Items[i].Checked := True
     else
       MenuConfig.Items[i].Checked := False;
+
+    if MenuConfig.Items[i].Checked then
+      MenuConfig.Items[i].ImageIndex := -1
+    else
+      MenuConfig.Items[i].ImageIndex := StrToInt(FConfigImages.ValueFromIndex[MenuConfig.Items[i].Tag]);
   end;
 end;
 
@@ -1815,6 +1826,7 @@ var
   lbl: TLabel;
   pnl: TPanel;
   targetTag: integer;
+  ServiceIcon: integer;
 begin
   if (FlowPairs = nil) or (MenuLangPairs = nil) then Exit;
 
@@ -1826,6 +1838,13 @@ begin
     // 1. Update menu item check state
     MenuLangPairs.Items[i].Checked :=
       SameText(MenuLangPairs.Items[i].Hint, FConfigFile + '=' + currentPair);
+
+    if not TryStrToInt(FConfigImages.Values[FLangPairs.Names[i]], ServiceIcon) then
+      ServiceIcon := -1;
+    if MenuLangPairs.Items[i].Checked then
+      MenuLangPairs.Items[i].ImageIndex := -1
+    else
+      MenuLangPairs.Items[i].ImageIndex := ServiceIcon;
 
     targetTag := i;
     lbl := nil;
