@@ -266,7 +266,7 @@ object formConfigTrayslate: TformConfigTrayslate
             BorderSpacing.Right = 15
             BorderSpacing.Around = 5
             ScrollBars = ssAutoVertical
-            TabOrder = 3
+            TabOrder = 6
             OnChange = ValueChange
             OnKeyDown = MemoKeyDown
           end
@@ -298,7 +298,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Anchors = [akTop, akLeft, akRight]
             DropDownCount = 15
             ItemHeight = 16
-            TabOrder = 4
+            TabOrder = 5
             OnChange = ValueChange
           end
           object ImagePreview: TImage
@@ -321,7 +321,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Top = 96
             Width = 159
             Caption = 'Allow translate as you type'
-            TabOrder = 5
+            TabOrder = 3
             OnChange = ValueChange
           end
           object CheckServiceOnlyButton: TCheckBox
@@ -330,7 +330,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Top = 128
             Width = 247
             Caption = 'Allow translation only by translation button'
-            TabOrder = 6
+            TabOrder = 4
             OnChange = ValueChange
           end
         end
