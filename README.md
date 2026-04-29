@@ -8,6 +8,15 @@ Trayslate is a tray-based client for translation services. You can enter text di
 [![Latest Release](https://img.shields.io/github/v/release/plaintool/trayslate?label=Release)](https://github.com/plaintool/trayslate/releases/latest)
 [![GitHub Downloads](https://img.shields.io/github/downloads/plaintool/trayslate/total?label=Downloads&cacheSeconds=3600)](https://github.com/plaintool/trayslate/releases)
 
+<p align="left">
+  <a href="https://www.majorgeeks.com/files/details/trayslate.html">
+    <img src="https://majorgeeks.com/images/mg_approved.gif" alt="MajorGeeks Approved" height="80">
+  </a>
+  <a href="https://www.softpedia.com/get/Office-tools/Other-Office-Tools/trayslate.shtml">
+    <img src="https://cdnssl.softpedia.com/_img/softpedia_100_free.png" alt="Softpedia" height="80">
+  </a>
+</p>
+
 ## What is it?
 
 A **compact tray translator** that is always at hand. It acts as a web client for translation services — meaning it doesn’t include any built-in engines, everything is handled through **external configurable services**. This keeps the tool **lightweight and independent**.
