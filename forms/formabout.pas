@@ -47,7 +47,7 @@ var
 
 implementation
 
-uses mainform, checkupdates, localize, darkutils;
+uses consts, mainform, checkupdates, localize, darkutils;
 
   {$R *.lfm}
 
@@ -55,7 +55,7 @@ uses mainform, checkupdates, localize, darkutils;
 
 procedure TformAboutTrayslate.FormCreate(Sender: TObject);
 begin
-  TLocalize.ApplicationTranslate(language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
+  TLocalize.ApplicationTranslate(APP_NAME, language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
 
   MemoAbout.Text := LblAbout.Caption;
   labelName.Caption := 'Trayslate © ' + GetAppVersion;

@@ -18,6 +18,7 @@ uses
   SysUtils,
   openssl,
   opensslsockets,
+  consts,
   mainform,
   localize
   {$IFDEF WINDOWS}
@@ -44,7 +45,7 @@ begin
   {$ENDIF}
   Application.ShowMainForm := False;
   Application.CreateForm(TformTrayslate, formTrayslate);
-  TLocalize.ApplicationTranslate(Language, nil, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
-  TLocalize.UpdatePackageTranslations('checkupdates', Language);
+  TLocalize.ApplicationTranslate(APP_NAME, Language, nil, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
+  TLocalize.UpdatePackageTranslations(APP_NAME, 'checkupdates', Language);
   Application.Run;
 end.

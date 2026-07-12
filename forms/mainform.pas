@@ -4610,11 +4610,11 @@ begin
   begin
     OldAutoDetect := ifthen(FLanguages.Any(rautodetect), rautodetect, AutoDetect);
     Language := LangCode;
-    TLocalize.ApplicationTranslate(DEFAULT_LANG);
-    if not TLocalize.ApplicationTranslate(Language, nil, PoText) then
+    TLocalize.ApplicationTranslate(APP_NAME, DEFAULT_LANG);
+    if not TLocalize.ApplicationTranslate(APP_NAME, Language, nil, PoText) then
       Language := DEFAULT_LANG;
 
-    TLocalize.UpdatePackageTranslations('checkupdates', Language);
+    TLocalize.UpdatePackageTranslations(APP_NAME, 'checkupdates', Language);
   end;
 
   UpdateAutoDetect(OldAutoDetect, rautodetect);

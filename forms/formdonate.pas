@@ -35,9 +35,7 @@ type
     procedure labelBankClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-
   public
-
   end;
 
 var
@@ -45,7 +43,7 @@ var
 
 implementation
 
-uses mainform, localize, darkutils;
+uses Consts, mainform, localize, darkutils;
 
   {$R *.lfm}
 
@@ -53,7 +51,7 @@ uses mainform, localize, darkutils;
 
 procedure TformDonateTrayslate.FormCreate(Sender: TObject);
 begin
-  TLocalize.ApplicationTranslate(language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
+  TLocalize.ApplicationTranslate(APP_NAME, language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
 
   labelBank.Font.Color := TDarkUtils.ThemeColor(clBlue, clSkyBlue);
   labelCrypto.Font.Color := TDarkUtils.ThemeColor(clBlue, clSkyBlue);

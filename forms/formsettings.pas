@@ -347,7 +347,7 @@ resourcestring
 
 implementation
 
-uses mainform, formpopup, languages, translate, localize, darkutils, controlshelper, stringshelper;
+uses consts, mainform, formpopup, languages, translate, localize, darkutils, controlshelper, stringshelper;
 
   {$R *.lfm}
 
@@ -361,7 +361,7 @@ var
   List: TStringList;
   Item, Path: string;
 begin
-  TLocalize.ApplicationTranslate(language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
+  TLocalize.ApplicationTranslate(APP_NAME, language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
 
   PanelPages.BevelColor := TDarkUtils.ThemeColor(ColorBevel, ColorBevelDark);
   PagesSettings.PageIndex := 0;

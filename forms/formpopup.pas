@@ -90,7 +90,7 @@ var
 
 implementation
 
-uses mainform, localize, darkutils, controlshelper;
+uses consts, mainform, localize, darkutils, controlshelper;
 
   {$R *.lfm}
 
@@ -98,7 +98,7 @@ uses mainform, localize, darkutils, controlshelper;
 
 procedure TformPopupTrayslate.FormCreate(Sender: TObject);
 begin
-  TLocalize.ApplicationTranslate(language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
+  TLocalize.ApplicationTranslate(APP_NAME, language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
 
   FDropTarget := TTextDropTarget.Create(Self);
   FDropTarget.Target := MemoTarget;

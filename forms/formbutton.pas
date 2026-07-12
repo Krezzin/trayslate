@@ -55,7 +55,7 @@ const
 
 implementation
 
-uses mainform, localize, darkutils;
+uses consts, mainform, localize, darkutils;
 
   {$R *.lfm}
 
@@ -68,7 +68,7 @@ var
 {$ENDIF}
 begin
   // Apply localization
-  TLocalize.ApplicationTranslate(language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
+  TLocalize.ApplicationTranslate(APP_NAME, language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
 
   // Set the appropriate icon based on the theme
   ImageTranslate.ImageIndex := TDarkUtils.ThemeValue(2, 3);

@@ -22,6 +22,7 @@ resourcestring
 
 const
   REPO = 'plaintool/trayslate';
+  APP_NAME = 'trayslate';
 
   { Main Form }
 

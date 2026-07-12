@@ -204,7 +204,7 @@ resourcestring
 
 implementation
 
-uses mainform, translate, settings, languages, network, stringhelper, base64utils, localize, darkutils, controlshelper;
+uses consts, mainform, translate, settings, languages, network, stringhelper, base64utils, localize, darkutils, controlshelper;
 
   {$R *.lfm}
 
@@ -214,7 +214,7 @@ procedure TformConfigTrayslate.FormCreate(Sender: TObject);
 var
   i: integer;
 begin
-  TLocalize.ApplicationTranslate(language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
+  TLocalize.ApplicationTranslate(APP_NAME, language, self, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
 
   Pages.PageIndex := 0;
   BtnClose.Cancel := True;
