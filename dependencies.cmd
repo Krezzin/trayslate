@@ -62,40 +62,59 @@ IF "%ARCH%"=="32" (
 
 cd /d "%~dp0"
 
-:: Build Synapse (with revert file laz_synapse.pas)
-call "%~dp0dependency.cmd" Synapse libs/synapse https://github.com/plainlib/synapse.git master "%~dp0libs\synapse\laz_synapse.lpk" laz_synapse.pas %DO_PULL% %DO_BUILD%
+:: Jump to the main part to avoid executing the subroutine
+goto :Main
+
+:: Build a single component with all parameters passed explicitly
+:BuildComponent
+set "comp=%~1"
+set "lower=%~2"
+set "branch=%~3"
+set "lpkname=%~4"
+set "revert=%~5"
+set "pullflag=%~6"
+set "buildflag=%~7"
+
+:: If lpk file is specified, form full path; otherwise leave empty
+if not "%lpkname%"=="" (
+    set "lpkfull=%~dp0libs\%lower%\%lpkname%"
+) else (
+    set "lpkfull="
+)
+
+call "%~dp0dependency.cmd" ^
+    "%comp%" ^
+    "libs/%lower%" ^
+    "https://github.com/plainlib/%lower%.git" ^
+    "%branch%" ^
+    "%lpkfull%" ^
+    "%revert%" ^
+    %pullflag% %buildflag%
+
 if errorlevel 1 (
     if not defined CI pause
     exit /b %errorlevel%
 )
+exit /b 0
+
+:: Main part
+:Main
 
 :: Build DarkMode
-call "%~dp0dependency.cmd" DarkMode libs/darkmode https://github.com/plainlib/darkmode.git main "%~dp0libs\darkmode\darkmode.lpk" "" %DO_PULL% %DO_BUILD%
-if errorlevel 1 (
-    if not defined CI pause
-    exit /b %errorlevel%
-)
-
-:: Build Toolkit
-call "%~dp0dependency.cmd" Toolkit libs/toolkit https://github.com/plainlib/toolkit.git main "%~dp0libs\toolkit\toolkit.lpk" "" %DO_PULL% %DO_BUILD%
-if errorlevel 1 (
-    if not defined CI pause
-    exit /b %errorlevel%
-)
+call :BuildComponent DarkMode darkmode main darkmode.lpk "" %DO_PULL% %DO_BUILD%
 
 :: Build Helpers
-call "%~dp0dependency.cmd" Helpers libs/helpers https://github.com/plainlib/helpers.git main "%~dp0libs\helpers\helpers.lpk" "" %DO_PULL% %DO_BUILD%
-if errorlevel 1 (
-    if not defined CI pause
-    exit /b %errorlevel%
-)
+call :BuildComponent Helpers helpers main helpers.lpk "" %DO_PULL% %DO_BUILD%
 
-:: Build OpenSSL
-call "%~dp0dependency.cmd" OpenSSL libs/openssl https://github.com/plainlib/openssl.git main "" "" %DO_PULL% nobuild
-if errorlevel 1 (
-    if not defined CI pause
-    exit /b %errorlevel%
-)
+:: Build OpenSSL (no lpk, no revert, build disabled)
+call :BuildComponent OpenSSL openssl main "" "" %DO_PULL% nobuild
 
+:: Build Synapse (with revert file laz_synapse.pas)
+call :BuildComponent Synapse synapse master laz_synapse.lpk laz_synapse.pas %DO_PULL% %DO_BUILD%
+
+:: Build Toolkit
+call :BuildComponent Toolkit toolkit main toolkit.lpk "" %DO_PULL% %DO_BUILD%
+
+echo.
 echo Dependencies OK
 exit /b 0
