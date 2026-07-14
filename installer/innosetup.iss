@@ -14,7 +14,7 @@
 #define MyAppVersion   MyVersion
 #define MyAppPublisher "Alexander Tverskoy"
 #define MyAppURL       "https://github.com/plaintool/trayslate"
-#define MyAppExeName   "trayslate.exe"
+#define MyAppExeName   "trayslate"
 #define CurrentYear    GetDateTimeString('yyyy','','')
 
 [Setup]
@@ -35,7 +35,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 
 UninstallDisplayName={#MyAppName} {#MyAppVersion}
-UninstallDisplayIcon={app}\trayslate.exe
+UninstallDisplayIcon={app}\{#MyAppExeName}.exe
 
 RestartApplications=no
 
@@ -47,7 +47,7 @@ LicenseFile=.\LICENSE.rtf
 
 WizardStyle=modern
 
-SetupIconFile=..\trayslate.ico
+SetupIconFile=..\{#MyAppExeName}.ico
 WizardSmallImageFile=.\wizardsmallimagefile.png
 
 DefaultDirName={autopf}\{#MyAppName}
@@ -56,7 +56,7 @@ ArchitecturesInstallIn64BitMode=x64compatible
 DisableProgramGroupPage=yes
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=.\
-OutputBaseFilename=trayslate-{#MyAppVersion}-any-x86-x64
+OutputBaseFilename={#MyAppExeName}-{#MyAppVersion}-any-x86-x64
 Compression=lzma
 SolidCompression=yes
 
@@ -119,16 +119,16 @@ Name: "ukrainian";  MessagesFile: "compiler:Languages\Ukrainian.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-#ifexist "..\trayslate.exe"
+#ifexist "..\{#MyAppExeName}.exe"
 ; 64-bit
-Source: "..\{#MyAppExeName}"; DestDir: "{app}"; DestName: "{#MyAppExeName}"; Check: Is64BitInstallMode; Flags: ignoreversion
+Source: "..\{#MyAppExeName}.exe"; DestDir: "{app}"; DestName: "{#MyAppExeName}.exe"; Check: Is64BitInstallMode; Flags: ignoreversion
 Source: "..\libcrypto-1_1-x64.dll"; DestDir: "{app}"; Check: Is64BitInstallMode; Flags: ignoreversion
 Source: "..\libssl-1_1-x64.dll"; DestDir: "{app}"; Check: Is64BitInstallMode; Flags: ignoreversion
 #endif
 
-#ifexist "..\trayslate32.exe"
+#ifexist "..\{#MyAppExeName}32.exe"
 ; 32-bit
-Source: "..\trayslate32.exe"; DestDir: "{app}"; DestName: "{#MyAppExeName}"; Check: not Is64BitInstallMode; Flags: ignoreversion
+Source: "..\{#MyAppExeName}32.exe"; DestDir: "{app}"; DestName: "{#MyAppExeName}.exe"; Check: not Is64BitInstallMode; Flags: ignoreversion
 Source: "..\libcrypto-1_1.dll"; DestDir: "{app}"; Check: not Is64BitInstallMode; Flags: ignoreversion
 Source: "..\libssl-1_1.dll"; DestDir: "{app}"; Check: not Is64BitInstallMode; Flags: ignoreversion
 #endif
@@ -158,8 +158,8 @@ Source: "..\config\pollinations-ai-api-ask.ini"; DestDir: "{app}\config"; Flags:
 Source: "..\config\languagedetect.ini"; DestDir: "{app}\config"; Flags: ignoreversion
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}.exe"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}.exe"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}.exe"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent

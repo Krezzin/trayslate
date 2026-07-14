@@ -28,7 +28,7 @@ IF NOT "%PLATFORM%"=="x64" IF NOT "%PLATFORM%"=="x86" (
 
 echo.
 echo ############################################################
-echo #                Build MSI %PLATFORM% peruser              #
+echo                  Build MSI %PLATFORM% peruser               
 echo ############################################################
 echo.
 
@@ -42,7 +42,7 @@ echo.
 
 echo.
 echo ############################################################
-echo #                 Build MSI %PLATFORM% permachine          #
+echo                   Build MSI %PLATFORM% permachine           
 echo ############################################################
 echo.
 
@@ -63,7 +63,7 @@ echo.
 
 echo.
 echo ############################################################
-echo #                     Sign %PLATFORM% installers           #
+echo                       Sign %PLATFORM% installers            
 echo ############################################################
 echo.
 
@@ -115,32 +115,9 @@ if not "%CERTFILE%"=="" (
     echo Skipping signing: CERTFILE not set.
 )
 
-echo.
-echo ############################################################
-echo #                       Build Portable                     #
-echo ############################################################
-echo.
-
 :: --- Portable ---
 if "%BUILD_PORTABLE%"=="1" (
-    powershell -NoProfile -Command ^
-    "$tmp='%~dp0temp_dist';" ^
-    "$exe64='%~dp0..\\trayslate.exe';" ^
-    "$exe32='%~dp0..\\trayslate32.exe';" ^
-    "$settings='%~dp0form_settings.json';" ^
-    "$license='%~dp0LICENSE.rtf';" ^
-    "$dlls=@('%~dp0..\\libcrypto-1_1-x64.dll','%~dp0..\\libssl-1_1-x64.dll','%~dp0..\\libcrypto-1_1.dll','%~dp0..\\libssl-1_1.dll');" ^
-    "$configDir='%~dp0..\\config';" ^
-    "$destZip='%~dp0trayslate-%VERSION%-x86-x64-portable.zip';" ^
-    "if ((Test-Path $exe64) -and (Test-Path $exe32) -and (Test-Path $configDir)) {" ^
-    "  if (Test-Path $tmp) { Remove-Item -Recurse -Force $tmp };" ^
-    "  New-Item -ItemType Directory -Path \"$tmp/config\" -Force | Out-Null;" ^
-    "  Copy-Item $exe64, $exe32, $settings, $license -Destination $tmp;" ^
-    "  Copy-Item $dlls -Destination $tmp;" ^
-    "  Copy-Item \"$configDir\\*.ini\" -Destination \"$tmp/config\";" ^
-    "  Compress-Archive -Force -Path \"$tmp\\*\" -DestinationPath $destZip;" ^
-    "  Remove-Item -Recurse -Force $tmp;" ^
-    "} else { Write-Error 'Portable inputs missing'; exit 1 }"
+    call "%~dp0buildportable.cmd" "%VERSION%"
 )
 
 echo Build and signing completed successfully!

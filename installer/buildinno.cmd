@@ -3,7 +3,7 @@ setlocal
 
 echo.
 echo ############################################################
-echo #                Build InnoSetup installer                 #
+echo                  Build InnoSetup installer                  
 echo ############################################################
 echo.
 
@@ -29,7 +29,7 @@ echo.
 
 echo.
 echo ############################################################
-echo #                Sign InnoSetup installer                  #
+echo                  Sign InnoSetup installer                   
 echo ############################################################
 echo.
 
